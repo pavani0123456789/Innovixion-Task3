@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+class QuizApp {
+
+    // Method to display a multiple-choice question and check the answer
+    public static boolean askMultipleChoiceQuestion(String question, String[] options, char correctAnswer) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println(question);
+        for (int i = 0; i < options.length; i++) {
+            System.out.println((char)('A' + i) + ". " + options[i]);
+        }
+        System.out.print("Your answer: ");
+        String userAnswer = scanner.nextLine();
+        
+        return userAnswer.equalsIgnoreCase(String.valueOf(correctAnswer));
+    }
+
+    // Method to display a true/false question and check the answer
+    public static boolean askTrueFalseQuestion(String question, boolean correctAnswer) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println(question + " (True/False)");
+        System.out.print("Your answer: ");
+        String userAnswer = scanner.nextLine();
+        
+        return (userAnswer.equalsIgnoreCase("True") && correctAnswer) ||
+               (userAnswer.equalsIgnoreCase("False") && !correctAnswer);
+    }
+
+    public static void main(String[] args) {
+        int score = 0;
+        int totalQuestions = 0;
+
+        // Multiple-choice question
+        String mcQuestion = "What is the capital of France?";
+        String[] mcOptions = {"Berlin", "Paris", "Rome", "Madrid"};
+        char mcCorrectAnswer = 'B';
+        totalQuestions++;
+        if (askMultipleChoiceQuestion(mcQuestion, mcOptions, mcCorrectAnswer)) {
+            System.out.println("Correct!");
+            score++;
+        } else {
+            System.out.println("Incorrect.");
+        }
+
+        // True/False question
+        String tfQuestion = "The Earth is flat.";
+        boolean tfCorrectAnswer = false;
+        totalQuestions++;
+        if (askTrueFalseQuestion(tfQuestion, tfCorrectAnswer)) {
+            System.out.println("Correct!");
+            score++;
+        } else {
+            System.out.println("Incorrect.");
+        }
+
+        // Display final score
+        System.out.println("Quiz complete! You scored " + score + " out of " + totalQuestions);
+    }
+}
